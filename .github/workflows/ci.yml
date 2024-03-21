@@ -1,12 +1,14 @@
 name: CI
 
 on:
-  push:
+  pull_request:
+    types: [ closed ]
     branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main'
 
     steps:
     - uses: actions/checkout@v2
