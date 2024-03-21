@@ -2,8 +2,7 @@ name: CI
 
 on:
   pull_request:
-    types: [ closed ]
-    branches: [ main ]
+    branches: [ main, develop ]
 
 jobs:
   build:
@@ -12,6 +11,18 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        tools: composer:v2, cs2pr
+
+    - name: Install Dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Check PHP Coding Standards
+      run: ./vendor/bin/phpcs --standard=PSR2 --report=checkstyle | cs2pr
 
     - name: Run a one-line script
       run: echo Hello, world!
