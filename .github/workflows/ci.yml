@@ -22,7 +22,7 @@ jobs:
       run: composer install --prefer-dist --no-progress --no-suggest
 
     - name: Check PHP Coding Standards
-      run: ./vendor/bin/phpcs --standard=PSR2 --report=checkstyle app | cs2pr
+      run: ./vendor/bin/phpcs --standard=PSR2 --report=checkstyle route | cs2pr
 
     - name: Run a one-line script
       run: echo Hello, world!
